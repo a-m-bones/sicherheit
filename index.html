@@ -81,7 +81,14 @@ button:focus{
 document.addEventListener("DOMContentLoaded", () => {
 
     const params = new URLSearchParams(window.location.search);
-    const lang = params.get("lang") || "en";
+  let lang = (params.get("lang") || "en").toLowerCase().trim();
+
+if (lang.startsWith("de")) lang = "de";
+if (lang.startsWith("fr")) lang = "fr";
+if (lang.startsWith("es")) lang = "es";
+if (lang.startsWith("ru")) lang = "ru";
+if (lang.startsWith("hu")) lang = "hu";
+if (lang.startsWith("tr")) lang = "tr";
 
     const content = {
         en: {
