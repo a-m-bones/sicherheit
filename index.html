@@ -6,14 +6,16 @@
 
 <style>
 body{
-    font-family: Inter, Arial, sans-serif;
+    font-family: Arial, sans-serif;
     text-align: center;
     margin-top: 40px;
     background: #f5f5f5;
 }
 
 iframe{
-    max-width: 90%;
+    width: 90%;
+    max-width: 800px;
+    height: 450px;
 }
 
 #continueBtn{
@@ -28,16 +30,10 @@ iframe{
 
 <body>
 
-<h1 id="title"></h1>
+<h1 id="title">Loading...</h1>
 <p id="instruction"></p>
 
-<iframe
-id="player"
-width="800"
-height="450"
-frameborder="0"
-allowfullscreen>
-</iframe>
+<iframe id="player" frameborder="0" allowfullscreen></iframe>
 
 <br>
 
@@ -45,66 +41,68 @@ allowfullscreen>
 
 <script>
 
-const params = new URLSearchParams(window.location.search);
-const lang = params.get('lang') || 'en';
+window.addEventListener("DOMContentLoaded", function () {
 
-const content = {
-en: {
-title: "Safety Briefing",
-instruction: "Please watch the full safety video.",
-video: "https://www.youtube.com/embed/lXsjboFLr_A"
-},
-de: {
-title: "Sicherheitseinweisung",
-instruction: "Bitte sehen Sie das vollständige Video an.",
-video: "https://www.youtube.com/embed/zabzR1QZQiM"
-},
-fr: {
-title: "Consignes de sécurité",
-instruction: "Veuillez regarder la vidéo complète.",
-video: "https://www.youtube.com/embed/_RtmOEpPGrc"
-},
-es: {
-title: "Instrucciones de seguridad",
-instruction: "Por favor vea el video completo.",
-video: "https://www.youtube.com/embed/ipcUs1_eFEI"
-},
-ru: {
-title: "Инструктаж по технике безопасности",
-instruction: "Пожалуйста, посмотрите видео полностью.",
-video: "https://www.youtube.com/embed/ZiIve6djYUY"
-},
-hu: {
-title: "Biztonsági tájékoztató",
-instruction: "Kérjük, nézze végig a videót.",
-video: "https://www.youtube.com/embed/3gCpkY8OcXc"
-},
-tr: {
-title: "Güvenlik Talimatı",
-instruction: "Lütfen videonun tamamını izleyin.",
-video: "https://www.youtube.com/embed/qV39k-8rskg"
-}
-};
+    const params = new URLSearchParams(window.location.search);
+    const lang = params.get('lang') || 'en';
 
-// set text
-document.getElementById("title").innerText = content[lang].title;
-document.getElementById("instruction").innerText = content[lang].instruction;
+    const content = {
+        en: {
+            title: "Safety Briefing",
+            instruction: "Please watch the full safety video.",
+            video: "https://www.youtube.com/embed/lXsjboFLr_A"
+        },
+        de: {
+            title: "Sicherheitseinweisung",
+            instruction: "Bitte sehen Sie das vollständige Video an.",
+            video: "https://www.youtube.com/embed/zabzR1QZQiM"
+        },
+        fr: {
+            title: "Consignes de sécurité",
+            instruction: "Veuillez regarder la vidéo complète.",
+            video: "https://www.youtube.com/embed/_RtmOEpPGrc"
+        },
+        es: {
+            title: "Instrucciones de seguridad",
+            instruction: "Por favor vea el video completo.",
+            video: "https://www.youtube.com/embed/ipcUs1_eFEI"
+        },
+        ru: {
+            title: "Инструктаж по технике безопасности",
+            instruction: "Пожалуйста, посмотрите видео полностью.",
+            video: "https://www.youtube.com/embed/ZiIve6djYUY"
+        },
+        hu: {
+            title: "Biztonsági tájékoztató",
+            instruction: "Kérjük, nézze végig a videót.",
+            video: "https://www.youtube.com/embed/3gCpkY8OcXc"
+        },
+        tr: {
+            title: "Güvenlik Talimatı",
+            instruction: "Lütfen videonun tamamını izleyin.",
+            video: "https://www.youtube.com/embed/qV39k-8rskg"
+        }
+    };
 
-// load video
-document.getElementById("player").src = content[lang].video;
+    const selected = content[lang] || content.en;
 
-const btn = document.getElementById("continueBtn");
+    document.getElementById("title").innerText = selected.title;
+    document.getElementById("instruction").innerText = selected.instruction;
+    document.getElementById("player").src = selected.video;
 
-// simple safe unlock (YouTube limitation workaround)
-setTimeout(() => {
-    btn.style.display = "inline-block";
-}, 30000);
+    const btn = document.getElementById("continueBtn");
 
-// redirect to forms.app
-btn.onclick = () => {
-    window.location.href =
-    "https://b6mzfrmb.forms.app/willkommen-2?lang=" + lang;
-};
+    // SAFE fallback (reliable in all browsers)
+    setTimeout(() => {
+        btn.style.display = "inline-block";
+    }, 25000);
+
+    btn.onclick = () => {
+        window.location.href =
+        "https://b6mzfrmb.forms.app/willkommen-2?lang=" + lang;
+    };
+
+});
 
 </script>
 
