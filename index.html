@@ -49,77 +49,55 @@ const lang = params.get('lang') || 'en';
 
 const content = {
 
+const content = {
 en: {
-title: 'Safety Briefing',
-instruction: 'Please watch the full safety video.',
-video: 'https://drive.google.com/uc?export=download&id=1Bbqnpqm6wPz0ILXFvrdcXq6bUIVhRBBs'
+title: "Safety Briefing",
+instruction: "Please watch the full safety video.",
+video: "https://www.youtube.com/embed/lXsjboFLr_A"
 },
-
 de: {
-title: 'Sicherheitseinweisung',
-instruction: 'Bitte sehen Sie das vollständige Video an.',
-video: 'https://drive.google.com/uc?export=download&id=1l57Uj_Cwzkkh38wr8NqWF2jgGpg3JeTG'
+title: "Sicherheitseinweisung",
+instruction: "Bitte sehen Sie das vollständige Video an.",
+video: "https://www.youtube.com/embed/zabzR1QZQiM"
 },
-
 fr: {
-title: 'Consignes de sécurité',
-instruction: 'Veuillez regarder la vidéo complète.',
-video: 'https://drive.google.com/uc?export=download&id=1qzyoaPwNX1hOWI-OzHwIl6vu4D31g07Y'
+title: "Consignes de sécurité",
+instruction: "Veuillez regarder la vidéo complète.",
+video: "https://www.youtube.com/embed/_RtmOEpPGrc"
 },
-
 es: {
-title: 'Instrucciones de seguridad',
-instruction: 'Por favor vea el video completo.',
-video: 'https://drive.google.com/uc?export=download&id=1XRE9YreI1MfmtRmXqc57gy0uEFQG9uI8'
+title: "Instrucciones de seguridad",
+instruction: "Por favor vea el video completo.",
+video: "https://www.youtube.com/embed/ipcUs1_eFEI"
 },
-
 ru: {
-title: 'Инструктаж по технике безопасности',
-instruction: 'Пожалуйста, посмотрите видео полностью.',
-video: 'https://drive.google.com/uc?export=download&id=1ZuryeSXlpL_PbDja0uxnwnDgjYVh0VZ-'
+title: "Инструктаж по технике безопасности",
+instruction: "Пожалуйста, посмотрите видео полностью.",
+video: "https://www.youtube.com/embed/ZiIve6djYUY"
 },
-
 hu: {
-title: 'Biztonsági tájékoztató',
-instruction: 'Kérjük, nézze végig a videót.',
-video: 'https://drive.google.com/uc?export=download&id=14AJopHOqmMXjCD4FThpSkXxMxSVrViVZ'
+title: "Biztonsági tájékoztató",
+instruction: "Kérjük, nézze végig a videót.",
+video: "https://www.youtube.com/embed/3gCpkY8OcXc"
 },
-
 tr: {
-title: 'Güvenlik Talimatı',
-instruction: 'Lütfen videonun tamamını izleyin.',
-video: 'https://drive.google.com/uc?export=download&id=1dB0LT1yk3Jxo9peKLviUKJZq9Zjtr3F0'
+title: "Güvenlik Talimatı",
+instruction: "Lütfen videonun tamamını izleyin.",
+video: "https://www.youtube.com/embed/qV39k-8rskg"
 }
-
 };
 
-document.getElementById('title').innerText = content[lang].title;
-document.getElementById('instruction').innerText = content[lang].instruction;
+document.getElementById("title").innerText = content[lang].title;
+document.getElementById("instruction").innerText = content[lang].instruction;
+
+document.getElementById("player").src = content[lang].video;
 
 const video = document.getElementById('video');
 video.src = content[lang].video;
 
 let maxTime = 0;
 
-video.addEventListener('timeupdate', () => {
-if(video.currentTime > maxTime){
-maxTime = video.currentTime;
-}
-});
-
-video.addEventListener('seeking', () => {
-if(video.currentTime > maxTime + 1){
-video.currentTime = maxTime;
-}
-});
-
-video.addEventListener('ratechange', () => {
-video.playbackRate = 1;
-});
-
-video.addEventListener('ended', () => {
-document.getElementById('continueBtn').style.display = 'inline-block';
-});
+<iframe id="player" width="800" height="450" frameborder="0" allowfullscreen></iframe>
 
 document.getElementById('continueBtn').onclick = () => {
 window.location.href =
