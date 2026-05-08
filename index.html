@@ -96,42 +96,42 @@ document.addEventListener("DOMContentLoaded", () => {
             instruction: "Bitte vollständiges Video ansehen.",
             back: "Zurück",
             continue: "Weiter",
-            video: "https://www.dropbox.com/scl/fi/ap2p8ymm96660xcuz85g0/cfm_sicherheitunterweisung_de.mp4?raw=1"
+            video: "https://res.cloudinary.com/dt0u20yez/video/upload/v1778250995/cfm_sicherheitunterweisung_de_gqtjuy.mp4"
         },
         fr: {
             title: "Consignes de sécurité",
             instruction: "Veuillez regarder la vidéo complète.",
             back: "Retour",
             continue: "Continuer",
-            video: "https://www.dropbox.com/scl/fi/930qstnqbesom1xv8yoao/cfm_sicherheitunterweisung_fr.mp4?raw=1"
+            video: "https://res.cloudinary.com/dt0u20yez/video/upload/v1778250982/cfm_sicherheitunterweisung_fr_llw8bp.mp4"
         },
         es: {
             title: "Instrucciones de seguridad",
             instruction: "Vea el video completo.",
             back: "Atrás",
             continue: "Continuar",
-            video: "https://www.dropbox.com/scl/fi/fvptb7prmw7algpt6g026/cfm_sicherheitunterweisung_esp.mp4?raw=1"
+            video: "https://res.cloudinary.com/dt0u20yez/video/upload/v1778250992/cfm_sicherheitunterweisung_esp_ul0bqo.mp4"
         },
         ru: {
             title: "Инструктаж",
             instruction: "Посмотрите видео полностью.",
             back: "Назад",
             continue: "Далее",
-            video: "https://www.dropbox.com/scl/fi/s37a9uweq2tlyvepfub0u/cfm_sicherheitunterweisung_ru.mp4?raw=1"
+            video: "https://res.cloudinary.com/dt0u20yez/video/upload/v1778250995/cfm_sicherheitunterweisung_ru_jnuuc5.mp4"
         },
         hu: {
             title: "Biztonsági tájékoztató",
             instruction: "Nézze végig a videót.",
             back: "Vissza",
             continue: "Tovább",
-            video: "https://www.dropbox.com/scl/fi/wjnjywu7b4but94k6v59p/cfm_sicherheitunterweisung_hu.mp4?raw=1"
+            video: "https://res.cloudinary.com/dt0u20yez/video/upload/v1778250992/cfm_sicherheitunterweisung_hu_xpldff.mp4"
         },
         tr: {
             title: "Güvenlik Talimatı",
             instruction: "Videonun tamamını izleyin.",
             back: "Geri",
             continue: "Devam",
-            video: "https://www.dropbox.com/scl/fi/zjje1xx7yhg2scngwvbor/cfm_sicherheitunterweisung_tu.mp4?raw=1"
+            video: "https://res.cloudinary.com/dt0u20yez/video/upload/v1778250987/cfm_sicherheitunterweisung_tu_hhpghe.mp4"
         }
     };
 
@@ -151,10 +151,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     backBtn.onclick = () => history.back();
 
-    continueBtn.onclick = () => {
-        window.location.href =
-        "https://b6mzfrmb.forms.app/willkommen-2?lang=" + lang;
-    };
+   continueBtn.onclick = () => {
+    window.location.href =
+    "https://show.forms.app/cfmaier/willkommen-2#69fdf93a41da93a1c819d2bb" + lang;
+};
 
     // unlock at end
     video.addEventListener("ended", () => {
