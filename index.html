@@ -144,19 +144,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     video.src = data.video;
 
-    // HARD ENFORCE no controls (fixes browser overrides)
-    video.removeAttribute("controls");
-    video.controls = false;
-
-    backBtn.innerText = data.back;
-    continueBtn.innerText = data.continue;
-
-    backBtn.onclick = () => history.back();
-
-    continueBtn.onclick = () => {
-        window.location.href =
-        "https://b6mzfrmb.forms.app/willkommen-2?lang=" + lang;
-    };
 
     // unlock at end
     video.addEventListener("ended", () => {
