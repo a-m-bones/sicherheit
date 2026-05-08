@@ -152,28 +152,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // STRONG SEEK BLOCK (improved version)
     let maxTime = 0;
-let isFixingSeek = false;
 
 video.addEventListener("timeupdate", () => {
-    if (!isFixingSeek && video.currentTime > maxTime) {
+    // only update when user is naturally progressing
+    if (video.currentTime > maxTime) {
         maxTime = video.currentTime;
     }
 });
 
 video.addEventListener("seeking", () => {
-    const attemptedTime = video.currentTime;
+    const buffer = 0.3;
 
-    // allow backward seeking
-    if (attemptedTime <= maxTime + 0.25) return;
+    // allow normal backward seeking
+    if (video.currentTime <= maxTime + buffer) return;
 
     // block forward seeking
-    isFixingSeek = true;
-
-    video.currentTime = maxTime;
-
-    setTimeout(() => {
-        isFixingSeek = false;
-    }, 100);
+    requestAnimationFrame(() => {
+        video.currentTime = maxTime;
+    });
 });
 
 </script>
