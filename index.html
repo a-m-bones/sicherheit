@@ -161,14 +161,28 @@ document.addEventListener("DOMContentLoaded", () => {
         continueBtn.style.display = "inline-block";
     });
 
-    // prevent skipping forward (core logic)
-    let maxTime = 0;
+ let maxTime = 0;
 
-    video.addEventListener("timeupdate", () => {
-        if (video.currentTime > maxTime) {
-            maxTime = video.currentTime;
-        }
-    });
+video.addEventListener("loadedmetadata", () => {
+    maxTime = 0;
+});
+
+video.addEventListener("timeupdate", () => {
+    // track furthest point reached naturally
+    if (video.currentTime > maxTime) {
+        maxTime = video.currentTime;
+    }
+});
+
+video.addEventListener("seeking", () => {
+    const buffer = 0.25;
+
+    // allow normal playback + slight browser jitter
+    if (video.currentTime <= maxTime + buffer) return;
+
+    // block forward seeking
+    video.currentTime = maxTime;
+});
 
     video.addEventListener("seeking", () => {
         if (video.currentTime > maxTime + 0.5) {
