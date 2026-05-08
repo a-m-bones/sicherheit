@@ -6,16 +6,15 @@
 
 <style>
 body{
-    font-family: Arial, sans-serif;
+    font-family: Arial;
     text-align: center;
     margin-top: 40px;
     background: #f5f5f5;
 }
 
-iframe{
+video{
     width: 90%;
     max-width: 800px;
-    height: 450px;
 }
 
 #continueBtn{
@@ -30,10 +29,10 @@ iframe{
 
 <body>
 
-<h1 id="title">Loading...</h1>
+<h1 id="title"></h1>
 <p id="instruction"></p>
 
-<iframe id="player" frameborder="0" allowfullscreen></iframe>
+<video id="video" controls controlsList="nodownload noplaybackrate"></video>
 
 <br>
 
@@ -41,7 +40,7 @@ iframe{
 
 <script>
 
-window.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
 
     const params = new URLSearchParams(window.location.search);
     const lang = params.get('lang') || 'en';
@@ -50,52 +49,67 @@ window.addEventListener("DOMContentLoaded", function () {
         en: {
             title: "Safety Briefing",
             instruction: "Please watch the full safety video.",
-            video: "https://www.youtube.com/embed/lXsjboFLr_A"
+            video: "https://www.dropbox.com/scl/fi/ahgbzy8uprzm8tttnb2qk/cfm_sicherheitunterweisung_en.mov?raw=1"
         },
         de: {
             title: "Sicherheitseinweisung",
             instruction: "Bitte sehen Sie das vollständige Video an.",
-            video: "https://www.youtube.com/embed/zabzR1QZQiM"
+            video: "https://www.dropbox.com/scl/fi/lrtu0p2kzim4b3vpw9vsj/cfm_sicherheitunterweisung_de.mov?raw=1"
         },
         fr: {
             title: "Consignes de sécurité",
             instruction: "Veuillez regarder la vidéo complète.",
-            video: "https://www.youtube.com/embed/_RtmOEpPGrc"
+            video: "https://www.dropbox.com/scl/fi/7ax39vdy52jrm0dzblmax/cfm_sicherheitunterweisung_fr.mov?raw=1"
         },
         es: {
             title: "Instrucciones de seguridad",
-            instruction: "Por favor vea el video completo.",
-            video: "https://www.youtube.com/embed/ipcUs1_eFEI"
+            instruction: "Vea el video completo.",
+            video: "https://www.dropbox.com/scl/fi/j4g4614n8ynwwn1089g4v/cfm_sicherheitunterweisung_esp.mov?raw=1"
         },
         ru: {
-            title: "Инструктаж по технике безопасности",
-            instruction: "Пожалуйста, посмотрите видео полностью.",
-            video: "https://www.youtube.com/embed/ZiIve6djYUY"
+            title: "Инструктаж",
+            instruction: "Посмотрите видео полностью.",
+            video: "https://www.dropbox.com/scl/fi/h7jn26rw73p80s0bdd4fo/cfm_sicherheitunterweisung_ru.mov?raw=1"
         },
         hu: {
             title: "Biztonsági tájékoztató",
-            instruction: "Kérjük, nézze végig a videót.",
-            video: "https://www.youtube.com/embed/3gCpkY8OcXc"
+            instruction: "Nézze végig a videót.",
+            video: "https://www.dropbox.com/scl/fi/r7f164fetfkgv2y1tfi29/cfm_sicherheitunterweisung_hu.mov?raw=1"
         },
         tr: {
             title: "Güvenlik Talimatı",
-            instruction: "Lütfen videonun tamamını izleyin.",
-            video: "https://www.youtube.com/embed/qV39k-8rskg"
+            instruction: "Videonun tamamını izleyin.",
+            video: "https://www.dropbox.com/scl/fi/z8lgjx0069yi9ha3b9zge/cfm_sicherheitunterweisung_tu.mov?raw=1"
         }
     };
 
-    const selected = content[lang] || content.en;
+    const data = content[lang] || content.en;
 
-    document.getElementById("title").innerText = selected.title;
-    document.getElementById("instruction").innerText = selected.instruction;
-    document.getElementById("player").src = selected.video;
+    document.getElementById("title").innerText = data.title;
+    document.getElementById("instruction").innerText = data.instruction;
 
+    const video = document.getElementById("video");
     const btn = document.getElementById("continueBtn");
 
-    // SAFE fallback (reliable in all browsers)
-    setTimeout(() => {
+    video.src = data.video;
+
+    let maxTime = 0;
+
+    video.addEventListener("timeupdate", () => {
+        if(video.currentTime > maxTime){
+            maxTime = video.currentTime;
+        }
+    });
+
+    video.addEventListener("seeking", () => {
+        if(video.currentTime > maxTime + 1){
+            video.currentTime = maxTime;
+        }
+    });
+
+    video.addEventListener("ended", () => {
         btn.style.display = "inline-block";
-    }, 25000);
+    });
 
     btn.onclick = () => {
         window.location.href =
