@@ -144,6 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     video.src = data.video;
 
+   
 
     // unlock at end
     video.addEventListener("ended", () => {
@@ -151,13 +152,27 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // STRONG SEEK BLOCK (improved version)
-  const video = document.getElementById("video");
+    let maxTime = 0;
+    let seekingLock = false;
 
-video.src = data.video;
+    video.addEventListener("timeupdate", () => {
+        if (!seekingLock && video.currentTime > maxTime) {
+            maxTime = video.currentTime;
+        }
+    });
 
-// ensure no controls confusion
-video.removeAttribute("controls");
-video.controls = false;
+    video.addEventListener("seeking", () => {
+        if (video.currentTime > maxTime + 0.3) {
+            seekingLock = true;
+            video.currentTime = maxTime;
+
+            setTimeout(() => {
+                seekingLock = false;
+            }, 50);
+        }
+    });
+
+});
 
 </script>
 
