@@ -1,26 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Safety Briefing</title>
+
+<style>
+body{
+    font-family: Arial;
+    background: #f5f5f5;
+    margin: 0;
+    padding: 40px;
+}
+
+/* container keeps everything aligned */
+.wrapper{
+    max-width: 900px;
+    margin: auto;
+}
+
+/* TEXT ABOVE VIDEO (left aligned) */
+#title, #instruction{
+    text-align: left;
+}
+
+/* video full width block */
+video{
+    width: 100%;
+    margin-top: 20px;
+    background: black;
+}
+
+/* buttons under video */
+.buttons{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+button{
+    padding: 12px 18px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+</style>
+</head>
+
 <body>
 
-<div class="container">
+<div class="wrapper">
 
-    <div class="left">
+    <h1 id="title"></h1>
+    <p id="instruction"></p>
 
-        <h1 id="title"></h1>
-        <p id="instruction"></p>
+    <video id="video" controls controlsList="nodownload noplaybackrate"></video>
 
+    <div class="buttons">
         <button id="backBtn"></button>
-
-    </div>
-
-    <div class="right">
-
-        <video id="video" controls controlsList="nodownload noplaybackrate"></video>
-
-        <div class="buttons">
-
-            <button id="continueBtn"></button>
-
-        </div>
-
+        <button id="continueBtn" style="display:none;"></button>
     </div>
 
 </div>
@@ -30,66 +67,58 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     const params = new URLSearchParams(window.location.search);
-    const lang = params.get('lang') || 'en';
+    const lang = params.get("lang") || "en";
 
     const content = {
-
         en: {
             title: "Safety Briefing",
             instruction: "Please watch the full safety video.",
-            continue: "Continue",
             back: "Back",
-            video: "https://www.dropbox.com/scl/fi/ahgbzy8uprzm8tttnb2qk/cfm_sicherheitunterweisung_en.mp4?raw=1"
+            continue: "Continue",
+            video: "https://www.dropbox.com/scl/fi/5125ual5wwbyo0f39pdb1/cfm_sicherheitunterweisung_en.mp4?raw=1"
         },
-
         de: {
             title: "Sicherheitseinweisung",
-            instruction: "Bitte sehen Sie das vollständige Video an.",
-            continue: "Weiter",
+            instruction: "Bitte vollständiges Video ansehen.",
             back: "Zurück",
-            video: "https://www.dropbox.com/scl/fi/lrtu0p2kzim4b3vpw9vsj/cfm_sicherheitunterweisung_de.mp4?raw=1"
+            continue: "Weiter",
+            video: "https://www.dropbox.com/scl/fi/ap2p8ymm96660xcuz85g0/cfm_sicherheitunterweisung_de.mp4?raw=1"
         },
-
         fr: {
             title: "Consignes de sécurité",
             instruction: "Veuillez regarder la vidéo complète.",
-            continue: "Continuer",
             back: "Retour",
-            video: "https://www.dropbox.com/scl/fi/7ax39vdy52jrm0dzblmax/cfm_sicherheitunterweisung_fr.mp4?raw=1"
+            continue: "Continuer",
+            video: "https://www.dropbox.com/scl/fi/930qstnqbesom1xv8yoao/cfm_sicherheitunterweisung_fr.mp4?raw=1"
         },
-
         es: {
             title: "Instrucciones de seguridad",
             instruction: "Vea el video completo.",
-            continue: "Continuar",
             back: "Atrás",
-            video: "https://www.dropbox.com/scl/fi/j4g4614n8ynwwn1o89g4v/cfm_sicherheitunterweisung_esp.mp4?raw=1"
+            continue: "Continuar",
+            video: "https://www.dropbox.com/scl/fi/fvptb7prmw7algpt6g026/cfm_sicherheitunterweisung_esp.mp4?raw=1"
         },
-
         ru: {
             title: "Инструктаж",
             instruction: "Посмотрите видео полностью.",
-            continue: "Далее",
             back: "Назад",
-            video: "https://www.dropbox.com/scl/fi/h7jn26rw73p80s0bdd4fo/cfm_sicherheitunterweisung_ru.mp4?raw=1"
+            continue: "Далее",
+            video: "https://www.dropbox.com/scl/fi/s37a9uweq2tlyvepfub0u/cfm_sicherheitunterweisung_ru.mp4?raw=1"
         },
-
         hu: {
             title: "Biztonsági tájékoztató",
             instruction: "Nézze végig a videót.",
-            continue: "Tovább",
             back: "Vissza",
-            video: "https://www.dropbox.com/scl/fi/r7f164fetfkgv2y1tfi29/cfm_sicherheitunterweisung_hu.mp4?raw=1"
+            continue: "Tovább",
+            video: "https://www.dropbox.com/scl/fi/wjnjywu7b4but94k6v59p/cfm_sicherheitunterweisung_hu.mp4?raw=1"
         },
-
         tr: {
             title: "Güvenlik Talimatı",
             instruction: "Videonun tamamını izleyin.",
-            continue: "Devam",
             back: "Geri",
-            video: "https://www.dropbox.com/scl/fi/z8lgjx0069yi9ha3b9zge/cfm_sicherheitunterweisung_tu.mp4?raw=1"
+            continue: "Devam",
+            video: "https://www.dropbox. com/scl/fi/zjje1xx7yhg2scngwvbor/cfm_sicherheitunterweisung_tu.mp4?raw=1"
         }
-
     };
 
     const data = content[lang] || content.en;
@@ -100,93 +129,27 @@ document.addEventListener("DOMContentLoaded", () => {
     const video = document.getElementById("video");
     video.src = data.video;
 
-    const continueBtn = document.getElementById("continueBtn");
     const backBtn = document.getElementById("backBtn");
+    const continueBtn = document.getElementById("continueBtn");
 
-    continueBtn.innerText = data.continue;
     backBtn.innerText = data.back;
+    continueBtn.innerText = data.continue;
+
+    backBtn.onclick = () => history.back();
 
     continueBtn.onclick = () => {
         window.location.href =
         "https://b6mzfrmb.forms.app/willkommen-2?lang=" + lang;
     };
 
-    backBtn.onclick = () => {
-        window.history.back();
-    };
-
-    // unlock continue button after time (safe fallback)
+    // fallback unlock (reliable)
     setTimeout(() => {
         continueBtn.style.display = "inline-block";
-    }, 25000);
+    }, 30000);
 
 });
 
 </script>
 
-<style>
-
-body{
-    font-family: Arial;
-    margin: 0;
-    background: #f5f5f5;
-}
-
-.container{
-    display: flex;
-    padding: 40px;
-    gap: 40px;
-}
-
-/* LEFT SIDE */
-.left{
-    width: 35%;
-}
-
-.left h1{
-    margin-top: 0;
-}
-
-/* RIGHT SIDE */
-.right{
-    width: 65%;
-}
-
-video{
-    width: 100%;
-    max-width: 800px;
-    background: black;
-}
-
-/* BUTTONS */
-.buttons{
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 15px;
-    gap: 10px;
-}
-
-button{
-    padding: 12px 20px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-/* MOBILE */
-@media (max-width: 900px){
-    .container{
-        flex-direction: column;
-    }
-
-    .left, .right{
-        width: 100%;
-    }
-
-    .buttons{
-        justify-content: center;
-    }
-}
-
-</style>
-
 </body>
+</html>
